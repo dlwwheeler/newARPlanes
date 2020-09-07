@@ -1,0 +1,4 @@
+
+[submodule "Assets/SimpleWings"]
+	path = Assets/SimpleWings
+	url = https://github.com/brihernandez/SimpleWings.git
