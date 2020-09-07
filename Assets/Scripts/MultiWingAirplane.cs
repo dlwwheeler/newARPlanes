@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class MultiWingAirplane : MonoBehaviour
 {
-	public Collider propeller;
+	public Collider[] propellers;
 	public Slider UIthrottle;
 	private List<SimpleWing> wings = new List<SimpleWing>();
 	public Joystick variableJoystick;
@@ -94,7 +94,7 @@ public class MultiWingAirplane : MonoBehaviour
 		{
 			
 		}
-		//this should be an event and not in the update function, however etheir way is functionally identical as long as framerate is consistant and this is not an operation I would conisder to have affect on performance so it will stay for now
+		//this should be an event and not in the update function, however either way is functionally identical as long as framerate is consistant and this is not an operation I would conisder to have affect on performance so it will stay for now
 		if(Rigidbody.velocity.magnitude<0.4){
 			foreach(var wing in wings){
 				wing.enabled=false;
@@ -110,7 +110,13 @@ public class MultiWingAirplane : MonoBehaviour
 		
 		if(Rigidbody.velocity.magnitude >0.2){
 			Rigidbody.velocity= new Vector3(0,0,0);
-			collision.contacts.ToList().ForEach((Contact)=>{if(Contact.thisCollider == propeller)Destroy(gameObject);});
+			collision.contacts.ToList().ForEach((Contact)=>{propellers.ToList().ForEach((propeller)=>{
+				if(Contact.thisCollider==propeller)
+					propeller.gameObject.SetActive(false);
+				});});
+			var planeWorking = false;
+			propellers.ToList().ForEach((propeller)=>{planeWorking= planeWorking||propeller.enabled;});
+			gameObject.SetActive(planeWorking);
 		}
 	}
 	private float CalculatePitchG()
