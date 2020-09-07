@@ -32,7 +32,7 @@ public class MultiWingAirplane : MonoBehaviour
 	private void Awake()
 	{
 		Rigidbody = GetComponent<Rigidbody>();
-		Rigidbody.maxDepenetrationVelocity = 3;
+		Rigidbody.maxDepenetrationVelocity = 1;
 		foreach(Transform child in transform){
 			if(child.gameObject.GetComponent<SimpleWing>())
 			wings.Add(child.gameObject.GetComponent<SimpleWing>());
@@ -55,7 +55,7 @@ public class MultiWingAirplane : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
 		if (elevator != null)
 		{

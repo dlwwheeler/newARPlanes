@@ -7,6 +7,7 @@ public class GameModeManager : MonoBehaviour
 {
     public GameObject Plane;
     public List<GameObject> activeObjects;
+    public Joystick joystick;
     public Level[] levels;
     public GameObject Player;
     private int levelCounter = 0;
@@ -15,10 +16,11 @@ public class GameModeManager : MonoBehaviour
     void Start()
     {
         spawnLevel(levelCounter);
+        Player.GetComponent<SphereCollider>().enabled=false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(activeObjects.Count==0){
             levelCounter++;
@@ -34,11 +36,14 @@ public class GameModeManager : MonoBehaviour
         }
         foreach(Touch touch in Input.touches){
             if(touch.phase == TouchPhase.Began){
-                Plane.SetActive(true);
+                Plane.SetActive(false);
                 Plane.transform.position = Player.transform.position;
                 Plane.transform.rotation = Player.transform.rotation;
+                Plane.SetActive(true);
                 Plane.GetComponent<Engine>().throttle=1;
+                Plane.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
                 Plane.GetComponent<Shooter>().Launch();
+                Plane.GetComponent<MultiWingAirplane>().variableJoystick = joystick;
             }
         }
     }

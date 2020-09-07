@@ -33,7 +33,7 @@ public class ARUIManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(throttle.enabled)return;
         //Debug.Log("looking for touch");
