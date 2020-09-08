@@ -22,6 +22,13 @@ public class GameModeManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        List<GameObject> newActiveObjects = new List<GameObject>();
+        foreach(var enemy in activeObjects){
+            if(enemy != null){
+                newActiveObjects.Add(enemy);
+            }
+        }
+        activeObjects = newActiveObjects;
         if(activeObjects.Count==0){
             levelCounter++;
             spawnLevel(levelCounter);
@@ -48,6 +55,7 @@ public class GameModeManager : MonoBehaviour
         }
     }
     void spawnLevel(int levelToSpawn){
+        Debug.Log("Spawning new Level");
         foreach(var spawnable in levels[levelToSpawn].objectsToLoad){
             activeObjects.Add(spawnable.spawn(Player));
         }
