@@ -12,7 +12,7 @@ public class Spawnable : MonoBehaviour
         float y =Player.transform.eulerAngles.y;
         rotVariance=Random.Range(-rotVariance,rotVariance);
         gameObject.transform.position = Player.transform.position;
-        gameObject.transform.position += new Vector3(Mathf.Cos(y+rotVariance)*Distance + Random.Range(-Variance,Variance),Height, Mathf.Sin(y+rotVariance)*Distance + Random.Range(-Variance,Variance));
+        gameObject.transform.position += new Vector3(Mathf.Sin(y+rotVariance)*Distance + Random.Range(-Variance,Variance),Height, Mathf.Cos(y+rotVariance)*Distance + Random.Range(-Variance,Variance));
         transform.LookAt(Player.transform);
         gameObject.SetActive(true);
         return gameObject;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 using System.Linq;
 
 public class GameModeManager : MonoBehaviour
@@ -10,11 +11,16 @@ public class GameModeManager : MonoBehaviour
     public Joystick joystick;
     public Level[] levels;
     public GameObject Player;
+    public ARPlaneManager planeManager;
+    public GameObject ARPlane;
     private int levelCounter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(ARPlane!= null)
+            planeManager.planePrefab = ARPlane;
+
         spawnLevel(levelCounter);
         Player.GetComponent<SphereCollider>().enabled=false;
     }
