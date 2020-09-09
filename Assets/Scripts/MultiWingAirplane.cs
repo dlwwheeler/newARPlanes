@@ -23,6 +23,8 @@ public class MultiWingAirplane : MonoBehaviour
 	public Engine engine;
 
 	public WeaponDropper[] weapons;
+	public AudioSource propAudio;
+	private float volumeforprop;
 
 	public Rigidbody Rigidbody { get; internal set; }
 
@@ -41,6 +43,7 @@ public class MultiWingAirplane : MonoBehaviour
 
 	private void Start()
 	{
+		volumeforprop = propAudio.volume;
 		if (elevator == null)
 			Debug.LogWarning(name + ": Airplane missing elevator!");
 		if (aileronLeft == null)
@@ -104,6 +107,13 @@ public class MultiWingAirplane : MonoBehaviour
 			foreach(var wing in wings){
 				wing.enabled=true;
 			}
+		}
+		propAudio.pitch = Rigidbody.velocity.magnitude / 20;
+		if(Rigidbody.velocity.magnitude<5){
+			propAudio.volume = Rigidbody.velocity.magnitude/20;
+		}
+		else{
+			propAudio.volume = volumeforprop;
 		}
 	}
 	public void OnCollisionEnter(Collision collision){
