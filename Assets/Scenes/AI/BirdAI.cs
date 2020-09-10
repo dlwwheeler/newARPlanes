@@ -15,6 +15,8 @@ public class BirdAi : MonoBehaviour
     float wanderDistance;
     public float pushUseTime;
     public float pushRegenTime;
+    private float lastPush;
+    private float lastRegen;
 
     public float friction;
     public Vector3 positionToAvoid;
@@ -36,7 +38,7 @@ public class BirdAi : MonoBehaviour
         
     }
     void avoidPlayer(){
-
+        
     }
     private void OnTriggerExit(Collider other) {
         objectsToAvoid.Remove(other);
